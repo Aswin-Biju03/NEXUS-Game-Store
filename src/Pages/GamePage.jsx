@@ -46,7 +46,7 @@ function GamePage() {
         );
         if (cartItem) {
           setAlreadyInCart(true);
-          setCartItemId(cartItem.id); // save json-server id for DELETE
+          setCartItemId(cartItem.id);
         }
 
         setAlreadyOwned(
@@ -106,7 +106,6 @@ function GamePage() {
   return (
     <div className="game-page">
       <div className="game-layout container">
-        {/* Left: Image */}
         <div className="game-image-wrap">
           <img
             src={game.image}
@@ -117,7 +116,6 @@ function GamePage() {
           />
         </div>
 
-        {/* Right: Details */}
         <div className="game-details">
           <span className="game-badge">🔥 Trending Now</span>
           <h1 className="game-title">{game.title}</h1>

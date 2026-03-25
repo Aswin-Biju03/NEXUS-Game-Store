@@ -76,7 +76,6 @@ export default function Payment() {
                 </div>
               </div>
 
-              {/* Back */}
               <div className="card-face card-back">
                 <div className="magnetic-stripe" />
                 <div className="cvv-row">
@@ -90,7 +89,6 @@ export default function Payment() {
           </div>
         </div>
 
-        {/* RIGHT — Form */}
         <div className="form-side">
           {paid ? (
             <div className="success">

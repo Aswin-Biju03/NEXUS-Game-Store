@@ -100,7 +100,6 @@ function Home() {
         speed={1}
       />
 
-      {/* TOP SEARCH BAR */}
       <div className="top-search-container">
         <form onSubmit={handleSearchSubmit} className="search-form">
           <input
@@ -143,7 +142,6 @@ function Home() {
         </form>
       </div>
 
-      {/* HERO */}
       <div id="home" className="hero-section">
         <h1 className="nexus-title">NEXUS</h1>
         <p className="nexus-subtitle">Built for Gamers</p>
@@ -152,7 +150,6 @@ function Home() {
         </a>
       </div>
 
-      {/* GAMES */}
       <section id="expgames" className="games-section">
         <h2 className="games-heading">Featured Games</h2>
         <div className="games-grid">

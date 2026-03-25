@@ -23,9 +23,8 @@ function GameLibrary() {
     }
   };
 
-  // 🔴 REMOVE WITH CONFIRMATION
   const removeGame = async (id, title, e) => {
-    e.stopPropagation(); // prevent navigation
+    e.stopPropagation(); 
 
     const confirmDelete = window.confirm(
       `Are you sure you want to remove "${title}" from your library?`
@@ -76,7 +75,7 @@ function GameLibrary() {
               <div className="game-overlay">
                 <h4 className="text-center my-2">{game.title}</h4>
 
-                {/* 🔴 REMOVE BUTTON */}
+         
                 <button
                   className="btn-remove"
                   onClick={(e) =>

@@ -27,7 +27,6 @@
   overflow: hidden;
 }
 
-/* Atmospheric background glow */
 .game-page::before {
   content: '';
   position: fixed;
@@ -52,7 +51,6 @@
   z-index: 0;
 }
 
-/* ── Split Layout ── */
 .game-layout {
   position: relative;
   z-index: 1;
@@ -70,7 +68,6 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Left: Image ── */
 .game-image-wrap {
   position: relative;
   border-radius: 20px;
@@ -103,7 +100,6 @@
   transform: scale(1.03);
 }
 
-/* Glint line */
 .game-image-wrap::after {
   content: '';
   position: absolute;
@@ -113,7 +109,6 @@
   z-index: 2;
 }
 
-/* ── Right: Details ── */
 .game-details {
   display: flex;
   flex-direction: column;
@@ -186,7 +181,6 @@
   padding-left: 16px;
 }
 
-/* Stars */
 .game-rating {
   display: flex;
   align-items: center;
@@ -213,7 +207,6 @@
   font-weight: 600;
 }
 
-/* Price */
 .game-price-row {
   display: flex;
   align-items: baseline;
@@ -247,7 +240,6 @@
   letter-spacing: 0.05em;
 }
 
-/* ── Action Buttons ── */
 .game-actions {
   display: flex;
   gap: 14px;
@@ -286,7 +278,6 @@
 .btn:hover::after { opacity: 0.05; }
 .btn:active { transform: scale(0.97); }
 
-/* Add to Cart */
 .btn-cart {
   background: var(--glass);
   border: 1px solid var(--accent);
@@ -300,7 +291,6 @@
   transform: translateY(-2px);
 }
 
-/* Buy Now */
 .btn-buy {
   background: linear-gradient(135deg, var(--accent2), #c7003d);
   color: white;
@@ -312,7 +302,6 @@
   transform: translateY(-2px);
 }
 
-/* ── Responsive ── */
 @media (max-width: 900px) {
   .game-layout {
     grid-template-columns: 1fr;
@@ -336,7 +325,6 @@
   .btn { flex: 100%; }
 }
 
-/* Disabled button state */
 .btn-disabled {
   opacity: 0.45;
   cursor: not-allowed;
@@ -345,7 +333,6 @@
   transform: none !important;
 }
 
-/* Already in cart state */
 .btn-cart-added {
   background: rgba(0, 229, 255, 0.08) !important;
   border-color: rgba(0, 229, 255, 0.2) !important;
@@ -354,7 +341,6 @@
   box-shadow: none !important;
 }
 
-/* Owned / already purchased state */
 .btn-owned {
   background: rgba(255, 75, 110, 0.08) !important;
   border: 1px solid rgba(255, 75, 110, 0.2) !important;
@@ -363,7 +349,6 @@
   box-shadow: none !important;
 }
 
-/* Remove from cart button */
 .btn-remove {
   background: rgba(255, 75, 110, 0.1);
   border: 1px solid rgba(255, 75, 110, 0.4);

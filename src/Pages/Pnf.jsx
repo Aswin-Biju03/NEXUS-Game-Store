@@ -2,7 +2,7 @@ import React from 'react'
 
 function Pnf() {
   return (
-    <div>Pnf</div>
+    <div className='text-center'>Page Not Found</div>
   )
 }
 
