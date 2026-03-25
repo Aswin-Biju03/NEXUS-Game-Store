@@ -64,7 +64,7 @@ function GamePage() {
   const handleAddToCart = async () => {
     if (alreadyInCart) return;
     try {
-      const res = await axios.post("http://localhost:3000/cart", {
+      const res = await axios.post("https://nexus-server-0fku.onrender.com/cart", {
         ...game,
         gameId: String(game.id),
       });
@@ -77,7 +77,7 @@ function GamePage() {
 
   const handleRemoveFromCart = async () => {
     try {
-      await axios.delete(`http://localhost:3000/cart/${cartItemId}`);
+      await axios.delete(`https://nexus-server-0fku.onrender.com/cart/${cartItemId}`);
       setAlreadyInCart(false);
       setCartItemId(null);
     } catch (err) {
@@ -88,7 +88,7 @@ function GamePage() {
   const handleBuyNow = async () => {
     if (alreadyOwned) return;
     try {
-      await axios.post("http://localhost:3000/library", {
+      await axios.post("https://nexus-server-0fku.onrender.com/library", {
         ...game,
         gameId: String(game.id),
         purchasedAt: new Date().toISOString(),

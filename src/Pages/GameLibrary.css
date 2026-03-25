@@ -40,6 +40,10 @@
   margin: 0;
   font-size: 14px;
 }
+.head{
+  font-size: 50px;
+}
+
 @media (max-width: 992px) {
   .games-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -50,4 +54,31 @@
   .games-grid {
     grid-template-columns: 1fr;
   }
+}
+/* Remove button */
+.btn-remove {
+  margin-top: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  border: none;
+  background: rgba(255, 75, 110, 0.9);
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-remove:hover {
+  background: #ff4b6e;
+  transform: scale(1.05);
+}
+
+/* Optional: show only on hover */
+.game-overlay button {
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.game-card:hover .game-overlay button {
+  opacity: 1;
 }

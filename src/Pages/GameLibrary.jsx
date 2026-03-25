@@ -9,10 +9,40 @@ function GameLibrary() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("https://nexus-server-0fku.onrender.com/library").then((res) => {
-      setOwned(res.data);
-    });
+    fetchOwnedGames();
   }, []);
+
+  const fetchOwnedGames = async () => {
+    try {
+      const res = await axios.get(
+        "https://nexus-server-0fku.onrender.com/library"
+      );
+      setOwned(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // 🔴 REMOVE WITH CONFIRMATION
+  const removeGame = async (id, title, e) => {
+    e.stopPropagation(); // prevent navigation
+
+    const confirmDelete = window.confirm(
+      `Are you sure you want to remove "${title}" from your library?`
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      await axios.delete(
+        `https://nexus-server-0fku.onrender.com/library/${id}`
+      );
+
+      setOwned((prev) => prev.filter((game) => game.id !== id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="container">
@@ -20,7 +50,7 @@ function GameLibrary() {
         colors={["#00ff33", "#34d9ef", "#4732ec"]}
         animationSpeed={8}
         showBorder={false}
-        className="custom-class fs-1 my-5"
+        className="custom-class head fs-0 ms-0 my-5"
       >
         Game Library
       </GradientText>
@@ -38,11 +68,23 @@ function GameLibrary() {
                 src={game.image}
                 alt={game.title}
                 onError={(e) => {
-                  e.target.src = "https://via.placeholder.com/300x200?text=Game";
+                  e.target.src =
+                    "https://via.placeholder.com/300x200?text=Game";
                 }}
               />
+
               <div className="game-overlay">
-                <h4 className="text-center my-3">{game.title}</h4>
+                <h4 className="text-center my-2">{game.title}</h4>
+
+                {/* 🔴 REMOVE BUTTON */}
+                <button
+                  className="btn-remove"
+                  onClick={(e) =>
+                    removeGame(game.id, game.title, e)
+                  }
+                >
+                  Remove
+                </button>
               </div>
             </div>
           ))

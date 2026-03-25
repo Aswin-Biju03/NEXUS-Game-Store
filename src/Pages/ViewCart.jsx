@@ -21,9 +21,9 @@ function ViewCart(){
         colors={["#00ff33", "#34d9ef", "#4732ec"]}
         animationSpeed={10}
         showBorder={false}
-        className="custom-class fs-1 my-5"
+        className="custom-class ms-0 my-5"
       >
-        Cart
+        <h1 style={{fontSize:'50px'}}>Cart</h1>
       </GradientText>
 
       <div className="games-grid">

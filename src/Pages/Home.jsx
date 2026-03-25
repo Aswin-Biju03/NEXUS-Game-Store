@@ -24,7 +24,7 @@ function Home() {
       img: "https://i.pinimg.com/736x/9d/91/6a/9d916a6be9b97874460a5a56cbd77cbd.jpg",
     },
     {
-      id: "3",
+      id: "51",
       title: "Black Myth: Wukong",
       img: "https://m.media-amazon.com/images/M/MV5BNGVmZTVjZDMtMzkyZi00MTczLWE4OTUtY2Y1ODBlMGFlYTAxXkEyXkFqcGc@._V1_.jpg",
     },

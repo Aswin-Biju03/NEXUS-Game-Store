@@ -19,7 +19,7 @@ function TrendingGames() {
         colors={["#00ff33", "#34d9ef", "#4732ec"]}
         animationSpeed={8}
         showBorder={false}
-        className="custom-class fs-1 my-5"
+        className="custom-class ms-0 head my-5"
       >
         Trending Games
       </GradientText>
