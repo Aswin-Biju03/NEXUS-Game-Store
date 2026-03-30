@@ -43,16 +43,28 @@
 }
 .btn-remove {
   margin-top: 6px;
-  padding: 6px 10px;
-  font-size: 12px;
+  padding: 6px 12px;
+  font-size: 13px;
   border-radius: 6px;
   border: none;
-  background: rgba(255, 75, 110, 0.9);
-  color: white;
+  background-color: #ff4b6e;
+  color: #fff;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: all 0.3s ease;
 }
 
+.btn-remove:hover {
+  background-color: #e04362;
+  transform: scale(1.05);
+}
+
+.btn-remove:active {
+  transform: scale(0.95);
+}
+
+.btn-remove:focus {
+  outline: none;
+}
 .btn-remove:hover {
   background: #ff4b6e;
   transform: scale(1.05);

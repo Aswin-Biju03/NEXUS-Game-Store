@@ -12,7 +12,7 @@ function formatExpiry(val) {
   return digits;
 }
 
-export default function Payment() {
+function Payment() {
   const [card, setCard] = useState({ number: "", name: "", expiry: "", cvv: "" });
   const [flipped, setFlipped] = useState(false);
   const [paid, setPaid] = useState(false);
@@ -45,12 +45,9 @@ export default function Payment() {
     <div className="page">
       <div className="layout">
 
-        {/* LEFT — Card */}
         <div className="card-side">
           <div className={`card-scene ${flipped ? "flipped" : ""}`}>
             <div className="card-inner">
-
-              {/* Front */}
               <div className="card-face card-front">
                 <div className="card-top">
                   <div className="chip" />
@@ -174,3 +171,4 @@ export default function Payment() {
     </div>
   );
 }
+export default Payment
