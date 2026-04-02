@@ -1,0 +1,313 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+.vc-page {
+  min-height: 100vh;
+  background: #070810;
+  padding: 1.6rem 2.5rem 3rem;
+  font-family: 'Syne', sans-serif;
+  color: #eef0f6;
+}
+
+/* ── Breadcrumb ── */
+.vc-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2.2rem;
+  font-size: 0.82rem;
+}
+
+.vc-sep   { color: #3a3d50; }
+.vc-crumb { color: #5a6070; }
+.vc-crumb-active { color: #eef0f6; font-weight: 600; }
+
+/* ── Layout ── */
+.vc-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 1.6rem;
+  align-items: start;
+}
+
+/* ── Left panel ── */
+.vc-left {
+  background: #0f1018;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  padding: 1.6rem;
+}
+
+.vc-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.4rem;
+}
+
+.vc-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.vc-count {
+  font-size: 0.75rem;
+  color: #5a6070;
+}
+
+.vc-clear {
+  background: none;
+  border: none;
+  color: #ff4d6d;
+  font-size: 0.78rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.2s;
+  font-family: 'Syne', sans-serif;
+}
+
+.vc-clear:hover { background: rgba(255, 77, 109, 0.1); }
+
+.vc-table-head {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 8px 10px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #5a6070;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  margin-bottom: 6px;
+}
+
+/* ── Items ── */
+.vc-items { display: flex; flex-direction: column; }
+
+.vc-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  animation: vcFadeUp 0.3s ease both;
+  transition: background 0.2s;
+  border-radius: 8px;
+}
+
+.vc-item:hover { background: rgba(255,255,255,0.02); }
+
+.vc-item-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.vc-item-left img {
+  width: 70px;
+  height: 52px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.vc-game-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.vc-game-sub {
+  font-size: 0.72rem;
+  color: #5a6070;
+  margin: 0;
+}
+
+.vc-item-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.vc-price {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.95rem;
+  color: #eef0f6;
+  margin: 0;
+  min-width: 70px;
+  text-align: right;
+}
+
+.vc-remove {
+  background: none;
+  border: none;
+  color: #5a6070;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 4px 7px;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.vc-remove:hover { color: #ff4d6d; background: rgba(255,77,109,0.1); }
+
+/* ── Empty state ── */
+.vc-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 3.5rem 0;
+  color: #5a6070;
+  font-size: 0.9rem;
+}
+
+.vc-empty span { font-size: 2.5rem; }
+
+.vc-browse {
+  padding: 9px 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  background: transparent;
+  color: #00ff33;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.vc-browse:hover { background: rgba(0,255,51,0.08); }
+
+/* ── Right panel ── */
+.vc-right {
+  background: #0f1018;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  position: sticky;
+  top: 1.5rem;
+}
+
+.vc-section-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #eef0f6;
+  margin: 0 0 10px;
+}
+
+/* Promo */
+.vc-promo-row {
+  display: flex;
+  gap: 8px;
+}
+
+.vc-promo-input {
+  flex: 1;
+  background: #181a26;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.85rem;
+  color: #eef0f6;
+  outline: none;
+  transition: border-color 0.2s;
+  caret-color: #00ff33;
+}
+
+.vc-promo-input::placeholder { color: #3a3d50; }
+.vc-promo-input:focus { border-color: #00ff33; }
+
+.vc-promo-btn {
+  padding: 9px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #eef0f6;
+  color: #070810;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.vc-promo-btn:hover { background: #00ff33; }
+
+.vc-promo-msg {
+  font-size: 0.72rem;
+  margin: 6px 0 0;
+}
+
+.vc-promo-msg.success { color: #00ff33; }
+.vc-promo-msg.error   { color: #ff4d6d; }
+
+/* Totals */
+.vc-totals {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 1rem;
+}
+
+.vc-totals-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #5a6070;
+}
+
+.vc-discount { color: #00ff33; }
+
+.vc-totals-final {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #eef0f6;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 10px;
+  margin-top: 2px;
+}
+
+.vc-totals-final span:last-child {
+  font-family: 'DM Mono', monospace;
+  color: #eef0f6;
+}
+
+/* Checkout button */
+.vc-checkout-btn {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 10px;
+  background: #eef0f6;
+  color: #070810;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.15s;
+}
+
+.vc-checkout-btn:hover {
+  background: #00ff33;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0,255,51,0.25);
+}
+
+@keyframes vcFadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 720px) {
+  .vc-layout { grid-template-columns: 1fr; }
+  .vc-page   { padding: 1.2rem; }
+  .vc-right  { position: static; }
+}
