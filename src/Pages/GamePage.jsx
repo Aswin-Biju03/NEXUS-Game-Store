@@ -41,17 +41,20 @@ function GamePage() {
 
         setGame(gameRes.data);
 
+        // Check if game is in cart
         const cartItem = cartRes.data.find(
-          (item) => String(item.gameId) === String(id),
+          (item) => String(item.gameId) === String(id)
         );
         if (cartItem) {
           setAlreadyInCart(true);
           setCartItemId(cartItem.id);
         }
 
-        setAlreadyOwned(
-          libraryRes.data.some((item) => String(item.gameId) === String(id)),
+        // Check if game is already owned in library
+        const isOwned = libraryRes.data.some(
+          (item) => String(item.gameId) === String(id)
         );
+        setAlreadyOwned(isOwned);
       } catch (err) {
         console.error("Error fetching data:", err);
       } finally {
@@ -64,9 +67,12 @@ function GamePage() {
   const handleAddToCart = async () => {
     if (alreadyInCart) return;
     try {
+      // Destructure to separate the game's intrinsic id from the payload body
+      const { id: originalId, ...gameDataWithoutId } = game;
+      
       const res = await axios.post("https://nexus-server-0fku.onrender.com/cart", {
-        ...game,
-        gameId: String(game.id),
+        ...gameDataWithoutId,
+        gameId: String(id),
       });
       setAlreadyInCart(true);
       setCartItemId(res.data.id);
@@ -88,15 +94,35 @@ function GamePage() {
   const handleBuyNow = async () => {
     if (alreadyOwned) return;
     try {
+      // Destructure so we don't pass 'id' to the backend, preventing database primary key conflicts
+      const { id: originalId, ...gameDataWithoutId } = game;
+
+      // 1. Post to library 
       await axios.post("https://nexus-server-0fku.onrender.com/library", {
-        ...game,
-        gameId: String(game.id),
+        ...gameDataWithoutId,
+        gameId: String(id),
         purchasedAt: new Date().toISOString(),
       });
+
+      // 2. Clear from cart backend if it was sitting in the cart
+      if (alreadyInCart && cartItemId) {
+        try {
+          await axios.delete(`https://nexus-server-0fku.onrender.com/cart/${cartItemId}`);
+          setAlreadyInCart(false);
+          setCartItemId(null);
+        } catch (cartErr) {
+          console.error("Minor: Failed to clear purchased item from cart endpoints", cartErr);
+        }
+      }
+
+      // 3. Update UI state before redirecting
       setAlreadyOwned(true);
+
+      // 4. Navigate to your checkout success/payment screen
       navigate("/payment");
     } catch (err) {
       console.error("Failed to add to library:", err);
+      alert("Something went wrong with the purchase. Please try again.");
     }
   };
 
