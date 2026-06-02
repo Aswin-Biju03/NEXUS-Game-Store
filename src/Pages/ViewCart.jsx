@@ -9,12 +9,15 @@ function ViewCart() {
   const [promo, setPromo] = useState("");
   const [discount, setDiscount] = useState(0);
   const [promoMsg, setPromoMsg] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("https://nexus-server-0fku.onrender.com/cart").then((res) => {
-      setCart(res.data);
-    });
+    axios.get("https://nexus-server-0fku.onrender.com/cart")
+      .then((res) => {
+        setCart(res.data);
+      })
+      .catch((err) => console.error("Failed to fetch cart:", err));
   }, []);
 
   const removeItem = (id) => {
@@ -42,6 +45,47 @@ function ViewCart() {
     }
   };
 
+  // Handles moving items from Cart to Library database tables upon checking out
+  const handleCheckoutAndPurchase = async () => {
+    if (cart.length === 0 || isProcessing) return;
+    setIsProcessing(true);
+
+    try {
+      // 1. Map through items and generate safe network POST promises to the library
+      const libraryPromises = cart.map((game) => {
+        // Strip out the cart record's specific table 'id' to prevent backend object overwrite errors
+        const { id: cartRecordId, ...cleanGameData } = game;
+        
+        return axios.post("https://nexus-server-0fku.onrender.com/library", {
+          ...cleanGameData,
+          // Guarantee tracking keys are strings for stable match indexing
+          gameId: String(game.gameId || game.id), 
+          purchasedAt: new Date().toISOString(),
+        });
+      });
+
+      // Execute all game creations in parallel
+      await Promise.all(libraryPromises);
+
+      // 2. Clear all item entries inside the cart endpoint database
+      const deleteCartPromises = cart.map((game) => 
+        axios.delete(`https://nexus-server-0fku.onrender.com/cart/${game.id}`)
+      );
+      await Promise.all(deleteCartPromises);
+
+      // 3. Clear client-side view state cleanly
+      setCart([]);
+
+      // 4. Send user to their payment dashboard confirmation
+      navigate("/payment");
+    } catch (err) {
+      console.error("Purchase checkout sequence failed:", err);
+      alert("There was an issue processing your purchase. Please try again.");
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   return (
     <div className="vc-page">
       {/* Breadcrumb */}
@@ -66,7 +110,9 @@ function ViewCart() {
               <span className="vc-count">{cart.length} product{cart.length !== 1 ? "s" : ""}</span>
             </div>
             {cart.length > 0 && (
-              <button className="vc-clear" onClick={clearCart}>✕ Clear cart</button>
+              <button className="vc-clear" onClick={clearCart} disabled={isProcessing}>
+                ✕ Clear cart
+              </button>
             )}
           </div>
 
@@ -79,7 +125,7 @@ function ViewCart() {
               <div className="vc-items">
                 {cart.map((game, i) => (
                   <div className="vc-item" key={game.id} style={{ animationDelay: `${i * 0.06}s` }}>
-                    <div className="vc-item-left" onClick={() => navigate(`/game/${game.gameId}`)}>
+                    <div className="vc-item-left" onClick={() => !isProcessing && navigate(`/game/${game.gameId || game.id}`)}>
                       <img
                         src={game.image}
                         alt={game.title}
@@ -92,7 +138,9 @@ function ViewCart() {
                     </div>
                     <div className="vc-item-right">
                       <p className="vc-price">${(Number(game.price) || 0).toFixed(2)}</p>
-                      <button className="vc-remove" onClick={() => removeItem(game.id)}>✕</button>
+                      <button className="vc-remove" onClick={() => removeItem(game.id)} disabled={isProcessing}>
+                        ✕
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -119,8 +167,11 @@ function ViewCart() {
                   value={promo}
                   onChange={(e) => setPromo(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && applyPromo()}
+                  disabled={isProcessing}
                 />
-                <button className="vc-promo-btn" onClick={applyPromo}>Apply</button>
+                <button className="vc-promo-btn" onClick={applyPromo} disabled={isProcessing}>
+                  Apply
+                </button>
               </div>
               {promoMsg && (
                 <p className={`vc-promo-msg ${discount > 0 ? "success" : "error"}`}>{promoMsg}</p>
@@ -142,8 +193,12 @@ function ViewCart() {
               </div>
             </div>
 
-            <button className="vc-checkout-btn" onClick={() => navigate("/payment")}>
-              Continue to checkout
+            <button 
+              className="vc-checkout-btn" 
+              onClick={handleCheckoutAndPurchase}
+              disabled={isProcessing}
+            >
+              {isProcessing ? "Processing Purchase..." : "Continue to checkout"}
             </button>
           </div>
         )}
