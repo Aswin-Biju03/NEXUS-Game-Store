@@ -23,25 +23,6 @@ function GameLibrary() {
     }
   };
 
-  const removeGame = async (id, title, e) => {
-    e.stopPropagation(); 
-
-    const confirmDelete = window.confirm(
-      `Are you sure you want to remove "${title}" from your library?`
-    );
-
-    if (!confirmDelete) return;
-
-    try {
-      await axios.delete(
-        `https://nexus-server-0fku.onrender.com/library/${id}`
-      );
-
-      setOwned((prev) => prev.filter((game) => game.id !== id));
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   return (
     <div className="container">
@@ -75,15 +56,6 @@ function GameLibrary() {
               <div className="game-overlay">
                 <h4 className="text-center my-2">{game.title}</h4>
 
-         
-                <button
-                  className="btn-remove"
-                  onClick={(e) =>
-                    removeGame(game.id, game.title, e)
-                  }
-                >
-                  Remove
-                </button>
               </div>
             </div>
           ))
